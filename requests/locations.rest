@@ -1,0 +1,5 @@
+### Get all locations
+GET http://localhost:3001/api/locations
+
+### Get a location by id
+GET http://localhost:3001/api/locations/1
