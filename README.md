@@ -48,7 +48,7 @@ IBM Cloudant database:
 
 ```bash
 git clone https://github.com/samrawitfe/accessibility-navigator.git
-cd accessibility-navigator-app
+cd accessibility-navigator
 npm install
 npm run dev
 ```
