@@ -1,7 +1,18 @@
-const locationRouter = require("express").Router();
-// const Location = require("../models/location");
-const logger = require("../utils/logger");
 
+locationRouter.post("/", async (req, res) => {
+  try {
+    const place = req.body;
+    const response = await client.postDocument({
+      db: dbName,
+      document: place,
+    });
+    console.log(response);
+    res.status(201).json(place);
+  } catch (error) {
+    logger.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 locationRouter.get("/", async (req, res) => {
   try {
     // const locations = await Location.findAll();
