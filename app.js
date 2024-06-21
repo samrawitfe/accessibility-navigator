@@ -1,12 +1,22 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const locationRouter = require("./controllers/places");
-const buildingRouter = require("./controllers/reviews");
+const unknownEndpoint = require("./middleware/unknownEndpoint");
+const errorHandler = require("./middleware/errorHandler");
+const requestLogger = require("./middleware/requestLogger");
+const dataService = require("./services/dataService");
+const placeRoutes = require("./routes/placeRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/places", locationRouter);
-app.use("/api/buildings", buildingRouter);
+app.use(requestLogger);
+app.use("/api/places", placeRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/test", require("./routes/testController"));
+
+setInterval(dataService.updateCachedData, 3600000);
+app.use(unknownEndpoint);
+app.use(errorHandler);
 
 module.exports = app;
