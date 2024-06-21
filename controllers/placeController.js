@@ -41,38 +41,6 @@ async function getPlaceById(req, res) {
   }
 }
 
-async function addReview(req, res) {
-  const placeId = req.params.id;
-  const { text, rating } = req.body;
-  const image = req.file; // Assuming you're using multer for file uploads
-
-  if (!text || !rating) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Text and rating are required" });
-  }
-
-  try {
-    let imageUrl = null;
-    if (image) {
-      imageUrl = await uploadImage(image);
-    }
-
-    const review = {
-      placeId,
-      text,
-      rating,
-      imageUrl,
-      createdAt: new Date().toISOString(),
-    };
-
-    await reviewService.addReview(review);
-    res.status(201).json({ success: true, data: review });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-}
-
 async function getRoute(req, res) {
   const placeId = req.params.id;
   const place = await dataService
@@ -82,4 +50,4 @@ async function getRoute(req, res) {
   res.json(route);
 }
 
-module.exports = { searchPlaces, getPlaceById, addReview, getRoute };
+module.exports = { searchPlaces, getPlaceById, getRoute };

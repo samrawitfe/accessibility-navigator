@@ -6,6 +6,7 @@ async function getReviewsByPlaceId(placeId) {
 }
 
 async function addReview(review) {
+  review._id = `review_${new Date().getTime()}`;
   await cloudant.storeData("reviews", review);
 }
 

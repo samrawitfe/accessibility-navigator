@@ -6,6 +6,7 @@ const COS_ENDPOINT = process.env.COS_ENDPOINT;
 const COS_APIKEY = process.env.COS_APIKEY;
 const COS_INSTANCE_ID = process.env.COS_INSTANCE_ID;
 const COS_BUCKET_NAME = process.env.COS_BUCKET_NAME;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = {
   PORT,
@@ -15,4 +16,5 @@ module.exports = {
   COS_APIKEY,
   COS_INSTANCE_ID,
   COS_BUCKET_NAME,
+  JWT_SECRET,
 };
