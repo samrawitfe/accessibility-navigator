@@ -8,6 +8,7 @@ const dataService = require("./services/dataService");
 const placeRoutes = require("./routes/placeRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 
+app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
