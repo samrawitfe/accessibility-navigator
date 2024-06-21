@@ -1,3 +1,6 @@
+### update database
+GET http://localhost:3001/api/test/update-db 
+ 
 ### Get all places
 GET http://localhost:3001/api/places
 

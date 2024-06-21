@@ -1,0 +1,6 @@
+
+### GET place  
+GET http://localhost:3001/api/places/search?q=obchod 
+
+  
+
