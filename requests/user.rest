@@ -1,0 +1,30 @@
+### Register a new user
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "Jana Nikolasova",
+  "email": "jana@brno.cz",
+  "password": "password123",
+  "disabilityType": "visual"
+}
+
+### Login a user
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jana@brno.cz",
+  "password": "password123"
+}
+
+
+### Update disability type for the logged-in user
+PUT http://localhost:3001/api/auth/disability-type
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXJfMTcxOTAxMDU5MjcxNCIsImlhdCI6MTcxOTAxMDU5MywiZXhwIjoxNzIxNjAyNTkzfQ.eS9t-Ktf2swzBRW3YOvEl46NtnMBc3PnuD3axBLZgo4
+
+{
+  "disabilityType": "visual"
+}
+

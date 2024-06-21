@@ -1,6 +1,8 @@
 const placeService = require("../services/placeService");
 const dataService = require("../services/dataService");
 const navigationService = require("../services/navigationService");
+const reviewService = require("../services/reviewService");
+const { uploadImage } = require("../utils/ibmCos");
 
 async function searchPlaces(req, res) {
   const query = req.query.q;
@@ -21,6 +23,24 @@ async function searchPlaces(req, res) {
   }
 }
 
+async function getPlaceById(req, res) {
+  const placeId = req.params.id;
+
+  try {
+    const place = await placeService.getPlaceById(placeId);
+    if (!place) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Place not found" });
+    }
+
+    const reviews = await reviewService.getReviewsByPlaceId(placeId);
+    res.json({ success: true, data: { place, reviews } });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 async function getRoute(req, res) {
   const placeId = req.params.id;
   const place = await dataService
@@ -30,4 +50,4 @@ async function getRoute(req, res) {
   res.json(route);
 }
 
-module.exports = { searchPlaces, getRoute };
+module.exports = { searchPlaces, getPlaceById, getRoute };

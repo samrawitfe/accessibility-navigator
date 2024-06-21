@@ -1,6 +1,21 @@
 
-### GET place  
+### GET matching places
 GET http://localhost:3001/api/places/search?q=knihovna 
+
+### GET place by id 
+GET http://localhost:3001/api/places/90
+
+### Get reviews for a place
+GET http://localhost:3001/api/places/90/reviews
+
+### Add review
+POST http://localhost:3001/api/places/90/reviews
+Content-Type: application/json
+
+{
+  "text": "This is a great place",
+  "rating": 5
+}
 
   
 
