@@ -1,3 +1,4 @@
+// middleware/authMiddleware.js
 const config = require("../utils/config");
 const jwt = require("jsonwebtoken");
 const userService = require("../services/userService");

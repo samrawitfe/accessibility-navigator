@@ -26,6 +26,15 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.getUserInfo = async (req, res) => {
+  try {
+    const user = await userService.getUserById(req.user._id);
+    res.json({ success: true, data: user });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
 exports.updateDisabilityType = async (req, res) => {
   const { disabilityType } = req.body;
   try {

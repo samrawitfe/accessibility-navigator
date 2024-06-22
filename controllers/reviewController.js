@@ -3,13 +3,13 @@ const reviewService = require("../services/reviewService");
 const { uploadImage } = require("../utils/ibmCos");
 
 exports.addReview = async (req, res) => {
-  const { text, rating } = req.body;
-  const image = req.file;
+  const { text, userId, username } = req.body;
+  const image = req.file; // Assuming you're using multer for file uploads
 
-  if (!text || !rating) {
+  if (!text) {
     return res
       .status(400)
-      .json({ success: false, message: "Text and rating are required" });
+      .json({ success: false, message: "Text is required" });
   }
 
   try {
@@ -20,10 +20,9 @@ exports.addReview = async (req, res) => {
 
     const review = {
       placeId: req.params.id,
-      userId: req.user._id,
+      user: { id: userId, username },
       text,
-      rating,
-      imageUrl,
+      imageUrl: imageUrl ? [imageUrl] : [],
       createdAt: new Date().toISOString(),
     };
 
@@ -37,19 +36,7 @@ exports.addReview = async (req, res) => {
 exports.getReviewsByPlaceId = async (req, res) => {
   try {
     const reviews = await reviewService.getReviewsByPlaceId(req.params.id);
-    const users = await cloudant.getData("users");
-    const reviewsWithUserDetails = reviews.map((review) => {
-      const user = users.find((user) => user._id === review.userId);
-      return {
-        ...review,
-        user: {
-          username: user.username,
-          email: user.email,
-          disabilityType: user.disabilityType,
-        },
-      };
-    });
-    res.json({ success: true, data: reviewsWithUserDetails });
+    res.json({ success: true, data: reviews });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
