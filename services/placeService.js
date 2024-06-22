@@ -33,12 +33,10 @@ async function getPlaceById(placeId) {
 
   for (const dataset of datasets) {
     const data = await dataService.getCachedData(dataset);
-    console.log(Object.values(data[0]));
     place = Object.values(data[0]).find((p) => p.id === Number(placeId));
 
     if (place) break;
   }
-  console.log(placeId);
   return place;
 }
 
